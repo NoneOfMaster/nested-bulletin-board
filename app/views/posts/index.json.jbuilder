@@ -1,1 +1,2 @@
-json.posts @posts, partial: 'posts/post', as: :post
+// from model for now
+// rebuild from new _post partial later

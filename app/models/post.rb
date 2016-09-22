@@ -39,8 +39,8 @@ class Post < ActiveRecord::Base
       {key => {
                 id: parent.id,
                 text: parent.text,
-                created: parent.created_at,
-                edited: parent.updated_at,
+                created_at: parent.created_at,
+                updated_at: parent.updated_at,
                 children: Post.json_converter(children)
               }
       }

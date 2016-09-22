@@ -7,7 +7,7 @@ class PostsController < ApplicationController
     prepare_posts
     respond_to do |format|
       format.html
-      format.json {render :json => @posts_json.to_json}
+      format.json {render :json => @posts_json}
     end
   end
 
@@ -55,7 +55,8 @@ class PostsController < ApplicationController
   def destroy
     @post = Post.find_by(post_params)
     @post.destroy
-    render :index
+    ## can refactor with rebuild of index jbuilder
+    render :json => prepare_posts
   end
 
   private
