@@ -5,7 +5,10 @@ class PostsController < ApplicationController
   # GET /posts.json
   def index
     prepare_posts
-    @posts
+    respond_to do |format|
+      format.html
+      format.json {render :json => @posts_json.to_json}
+    end
   end
 
   # GET /posts/1
@@ -62,7 +65,8 @@ class PostsController < ApplicationController
     end
 
     def prepare_posts
-      @posts = Post.tree_to_array
+      @posts = Post.posts_to_ancestry_tree("created_at")
+      @posts_json = Post.make_json(@posts)
     end
 
     def post_params
