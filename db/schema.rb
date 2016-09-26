@@ -11,13 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160904040726) do
+ActiveRecord::Schema.define(version: 20160925234019) do
 
   create_table "posts", force: :cascade do |t|
     t.text     "text"
     t.string   "ancestry"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "is_deleted", default: false
   end
 
   add_index "posts", ["ancestry"], name: "index_posts_on_ancestry"

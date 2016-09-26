@@ -54,7 +54,7 @@ class PostsController < ApplicationController
   # DELETE /posts/1.json
   def destroy
     @post = Post.find_by(post_params)
-    @post.destroy
+    @post.update(:is_deleted => TRUE)
     ## can refactor with rebuild of index jbuilder
     render :json => prepare_posts
   end

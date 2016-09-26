@@ -35,10 +35,11 @@ class Post < ActiveRecord::Base
 
   def self.json_converter(posts_hash)
     posts_hash.map{|parent, children|
+      parent.is_deleted == TRUE ? text = "<<deleted>>" : text = parent.text
       key = parent.id
       {key => {
                 id: parent.id,
-                text: parent.text,
+                text: text,
                 created_at: parent.created_at,
                 updated_at: parent.updated_at,
                 children: Post.json_converter(children)
