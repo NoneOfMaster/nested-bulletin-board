@@ -4,6 +4,8 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
+    # TODO: render the componant here and give it @posts to mount with
+    # https://github.com/reactjs/react-rails#rendering--mounting
     prepare_posts
     respond_to do |format|
       format.html
