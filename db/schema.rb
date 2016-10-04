@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20160925234019) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "posts", force: :cascade do |t|
     t.text     "text"
     t.string   "ancestry"
@@ -21,6 +24,6 @@ ActiveRecord::Schema.define(version: 20160925234019) do
     t.boolean  "is_deleted", default: false
   end
 
-  add_index "posts", ["ancestry"], name: "index_posts_on_ancestry"
+  add_index "posts", ["ancestry"], name: "index_posts_on_ancestry", using: :btree
 
 end
