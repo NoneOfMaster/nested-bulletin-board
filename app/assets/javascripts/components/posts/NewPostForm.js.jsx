@@ -1,4 +1,3 @@
-
 var NewPostForm = React.createClass({
   submitProtocol(postType) { 
     if ( postType === "newPost" ) { 
@@ -11,7 +10,7 @@ var NewPostForm = React.createClass({
     var text = this.refs.text.value;
     document.getElementById("new-post-input").value = "";
     $.ajax({
-      url: '/posts',
+      url: this.props.postsPath,
       type: 'POST',
       dataType: 'json',
       data:  { post: {text: text} }, 
@@ -25,7 +24,7 @@ var NewPostForm = React.createClass({
     var text = this.refs.text.value;
     var parentId = this.props.parentId;
     $.ajax({
-      url: '/posts',
+      url: this.props.postsPath,
       type: 'POST',
       dataType: 'json',
       data:  { post: {text: text, parent_id: parentId} }, 
@@ -37,21 +36,22 @@ var NewPostForm = React.createClass({
 
   render() {
     return (
-        <div>
-          <input 
-            id="new-post-input" 
-            ref='text' 
-            placeholder={this.props.placeHolderText} 
-          />
-          <button 
-            onClick={this.submitProtocol(this.props.postType)}> Submit
-          </button>
-        </div>
+      <div>
+        <input 
+          id="new-post-input" 
+          ref='text' 
+          placeholder={this.props.placeHolderText} 
+        />
+        <button 
+          onClick={this.submitProtocol(this.props.postType)}> Submit
+        </button> {/* fires on load, tho generally onClick does not call function */}
+      </div>
     )
   }
 });
 
 NewPostForm.propTypes = {
+  postsPath: React.PropTypes.string.isRequired,
   postType: React.PropTypes.string.isRequired,
   placeHolderText: React.PropTypes.string,
   parentID: React.PropTypes.string,

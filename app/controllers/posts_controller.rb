@@ -9,6 +9,8 @@ class PostsController < ApplicationController
     prepare_posts
     respond_to do |format|
       format.html
+      ## may have to use a different url or add Vary header
+      ## to avoid browser caching and rendering json on back nav
       format.json {render :json => @posts_json}
     end
   end

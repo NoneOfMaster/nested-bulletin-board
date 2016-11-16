@@ -4,7 +4,7 @@ var PostsIndexBody = React.createClass({
   }, 
   componentDidMount: function() {
     $.ajax({
-      url: '/posts',
+      url: this.props.postsPath,
       type: 'GET',
       dataType: 'json',
       success: function(data) {
@@ -61,6 +61,7 @@ var PostsIndexBody = React.createClass({
         />
         <h3> New Post </h3>
         <NewPostForm 
+          postsPath = {this.props.postsPath}
           postType="newPost"
           placeHolderText="add a new comment"
           add={this.addNewPost}

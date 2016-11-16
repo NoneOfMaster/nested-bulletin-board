@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def home
+    # how can the below be done with data?
     render component: 'HomeShowBody'
   end
 
