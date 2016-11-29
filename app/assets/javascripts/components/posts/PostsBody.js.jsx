@@ -1,16 +1,16 @@
-var PostsIndexBody = React.createClass({
+var PostsBody = React.createClass({
   getInitialState: function(){
     return {posts: []};
   }, 
   componentDidMount: function() {
-    $.ajax({
-      url: this.props.postsPath,
-      type: 'GET',
-      dataType: 'json',
-      success: function(data) {
-        this.setState(data);
-      }.bind(this)
-    });
+      $.ajax({
+        url: this.props.postsPath,
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+          this.setState(data);
+        }.bind(this)
+      });
   },
 
   addNewPost(post) {
@@ -53,12 +53,8 @@ var PostsIndexBody = React.createClass({
   render() {
     return (
       <div className="body">
-        <h3> Posts </h3>
-        <PostsContainer 
-          posts={this.state.posts}
-          postsPath = {this.props.postsPath}
-          replyToPost={this.replyToPost}
-          deletePost={this.deletePost} 
+        <TopSelector 
+          selection={this.props.postSet}
         />
         <h3> New Post </h3>
         <NewPostForm 
@@ -67,11 +63,18 @@ var PostsIndexBody = React.createClass({
           placeHolderText="add a new comment"
           add={this.addNewPost}
         />
+        <PostsContainer 
+          posts={this.state.posts}
+          postsPath = {this.props.postsPath}
+          replyToPost={this.replyToPost}
+          deletePost={this.deletePost} 
+        />
       </div>
     )
   }
 });
 
-PostsIndexBody.propTypes = {
-  postsPath: React.PropTypes.string.isRequired,
+PostsBody.propTypes = {
+  postSet: React.PropTypes.string.isRequired,
+  postsPath: React.PropTypes.string.isRequired
 };

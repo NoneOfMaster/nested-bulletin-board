@@ -1,26 +1,45 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
+  ## may have to use a different url or add Vary header
+  ## to avoid browser caching and rendering json on back nav
+
   # GET /posts
   # GET /posts.json
   def index
-    # TODO: render the componant here and give it @posts to mount with
-    # https://github.com/reactjs/react-rails#rendering--mounting
+    #top level posts
     @active_nav = 0 #for header component prop
-    prepare_posts
+    prepare_posts("top_level")
     respond_to do |format|
-      format.html {render component: 'PostsIndexBody', 
-                          props: { postsPath: posts_path } 
+      format.html {render component: 'PostsBody', 
+                          props: { 
+                            postSet: "discussionTopics",
+                            postsPath: posts_path
+                            } 
                           }
-      ## may have to use a different url or add Vary header
-      ## to avoid browser caching and rendering json on back nav
-      format.json {render :json => @posts_json}
+      ### can give posts to render with as initial state
+      format.json {render :json => @top_level_posts_json}
+    end
+  end
+
+  def master
+    #all posts
+    prepare_posts("all")
+    respond_to do |format|
+      format.html {render component: 'PostsBody', 
+                          props: { 
+                            postSet: "master",
+                            postsPath: master_posts_path
+                            } 
+                          }
+      format.json {render :json => @total_posts_json}
     end
   end
 
   # GET /posts/1
   # GET /posts/1.json
   def show
+    render component: 'PostsContainer'
   end
 
   # GET /posts/new
@@ -78,9 +97,15 @@ class PostsController < ApplicationController
       @post = Post.find(params[:id])
     end
 
-    def prepare_posts
-      @posts = Post.posts_to_ancestry_tree("created_at")
-      @posts_json = Post.make_json(@posts)
+    def prepare_posts(post_set)
+      #replace ordering by :created_at with ranking algo
+      case post_set
+      when "top_level"
+        @top_level_posts_json = Post.top_level_posts_json
+      when "all"
+        ## makes hash 
+        @total_posts_json = Post.make_master_json
+      end
     end
 
     def post_params
