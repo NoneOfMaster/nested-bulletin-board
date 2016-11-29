@@ -9,7 +9,9 @@
 <body>
 
 <%= react_component 'Header', 
-      postsPath: posts_path %>
+      postsPath: posts_path,
+      newPath: new_post_path,
+      activeNav: @active_nav %>
 <%= yield %>
 
 </body>

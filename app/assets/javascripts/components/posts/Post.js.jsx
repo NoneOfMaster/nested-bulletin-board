@@ -27,6 +27,7 @@ var Post = React.createClass({
         <button onClick={this.deletePost}> Delete </button>
         { this.state.replyBox === "show" &&
           < NewPostForm
+            postsPath = {this.props.postsPath}
             toggleReplyBox={this.toggleReplyBox}
             parentId={this.props.id} 
             postType="postReply"
@@ -46,5 +47,6 @@ Post.propTypes = {
   created: React.PropTypes.string.isRequired,
   edited: React.PropTypes.string.isRequired,
   replyToPost: React.PropTypes.func.isRequired,
-  deletePost: React.PropTypes.func.isRequired
+  deletePost: React.PropTypes.func.isRequired,
+  postsPath: React.PropTypes.string.isRequired
 };

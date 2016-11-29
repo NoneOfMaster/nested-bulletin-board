@@ -56,6 +56,7 @@ var PostsIndexBody = React.createClass({
         <h3> Posts </h3>
         <PostsContainer 
           posts={this.state.posts}
+          postsPath = {this.props.postsPath}
           replyToPost={this.replyToPost}
           deletePost={this.deletePost} 
         />
@@ -70,3 +71,7 @@ var PostsIndexBody = React.createClass({
     )
   }
 });
+
+PostsIndexBody.propTypes = {
+  postsPath: React.PropTypes.string.isRequired,
+};

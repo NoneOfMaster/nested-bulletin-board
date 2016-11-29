@@ -1,39 +1,38 @@
 var Header = React.createClass({
-
+  //the issue is that this state is always reinstated not saved anywhere
   getInitialState: function(){
+    activeNav = this.props.activeNav;
     discussionsPath = this.props.postsPath;
-    return {nav: [
+    newPath = this.props.newPath;
+    var navObj = {nav: [
       {
-        id: 1,
+        id: 0,
         title: "Discussions",
-        active: "inactive",
+        status: "inactive",
         path: discussionsPath
       },
       {
-        id: 2,
+        id: 1,
         title: "New Discussions",
-        active: "inactive",
-        path: "#/2"
+        status: "inactive",
+        path: newPath
       },
       {
-        id: 3,
+        id: 2,
         title: "Sign In",
-        active: "inactive",
+        status: "inactive",
         path: "#/3"
       },
       {
-        id: 4,
+        id: 3,
         title: "Create Account",
-        active: "inactive",
+        status: "inactive",
         path: "#/4"
       }
     ]
   };
-  },
-
-  doNav(id,path) {
-    console.log(id);
-    console.log(path);
+  if (activeNav != null) navObj.nav[activeNav].status = "active";
+  return navObj;
   },
 
   render() {
@@ -45,11 +44,12 @@ var Header = React.createClass({
         <ul>
           { this.state.nav.map(function(navItem){
 
-              return <li key={navItem.id} 
+              return <li 
+                        key={navItem.id} 
+                        className={"nav-item-" + navItem.status}
                       >
                       <a
                         href={navItem.path}
-                        onClick={this.doNav.bind(null,navItem.id,navItem.path)}
                       >{navItem.title}</a>
                       </li>
 
@@ -61,3 +61,8 @@ var Header = React.createClass({
   }
 
 });
+
+Header.propTypes = {
+  postsPath: React.PropTypes.string.isRequired,
+  newPath: React.PropTypes.string.isRequired
+};

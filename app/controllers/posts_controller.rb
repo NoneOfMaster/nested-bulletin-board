@@ -6,9 +6,12 @@ class PostsController < ApplicationController
   def index
     # TODO: render the componant here and give it @posts to mount with
     # https://github.com/reactjs/react-rails#rendering--mounting
+    @active_nav = 0 #for header component prop
     prepare_posts
     respond_to do |format|
-      format.html
+      format.html {render component: 'PostsIndexBody', 
+                          props: { postsPath: posts_path } 
+                          }
       ## may have to use a different url or add Vary header
       ## to avoid browser caching and rendering json on back nav
       format.json {render :json => @posts_json}
@@ -22,7 +25,13 @@ class PostsController < ApplicationController
 
   # GET /posts/new
   def new
-    @post = Post.new
+    @active_nav = 1
+    render component: 'NewPostForm',
+            props: {
+              postsPath: posts_path,
+              postType: "newPost",
+              placeHolderText: "Start Discussion"
+            }
   end
 
   # GET /posts/1/edit
