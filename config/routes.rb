@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   resources :posts do
     collection do
       get 'master'
-      post 'master' => 'posts#create'
     end
   end
 

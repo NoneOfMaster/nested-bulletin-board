@@ -11,23 +11,32 @@ var Post = React.createClass({
       url: '/posts/' + id,
       type: 'DELETE',
       dataType: 'json',
-      data:  { post: {id: id} }, //this is redundant but
+      data:  { post: {id: id} }, //this is redundant
       success: function(post) {
         this.props.deletePost(id);
       }.bind(this)
     });
   },
-
+  // consider seperate component for buttons/options
   render() {
     return (
       <div className="post">
         <p>{this.props.created + ": " + this.props.text}</p>
-        <button onClick={this.toggleReplyBox}> Reply </button>
+
+        { this.props.postSet != "discussionTopics" &&
+          <button onClick={this.toggleReplyBox}> Reply </button>
+        }
+
+        { this.props.postSet === "discussionTopics" &&
+          <button> Discuss </button>
+        }
+
         <button> Edit </button>
+
         <button onClick={this.deletePost}> Delete </button>
+
         { this.state.replyBox === "show" &&
           < NewPostForm
-            postsPath = {this.props.postsPath}
             toggleReplyBox={this.toggleReplyBox}
             parentId={this.props.id} 
             postType="postReply"
@@ -48,5 +57,5 @@ Post.propTypes = {
   edited: React.PropTypes.string.isRequired,
   replyToPost: React.PropTypes.func.isRequired,
   deletePost: React.PropTypes.func.isRequired,
-  postsPath: React.PropTypes.string.isRequired
+  postSet: React.PropTypes.string.isRequired,
 };

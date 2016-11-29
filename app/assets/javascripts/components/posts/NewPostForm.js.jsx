@@ -10,7 +10,7 @@ var NewPostForm = React.createClass({
     var text = this.refs.text.value;
     document.getElementById("new-post-input").value = "";
     $.ajax({
-      url: this.props.postsPath,
+      url: "/posts",
       type: 'POST',
       dataType: 'json',
       data:  { post: {text: text} }, 
@@ -24,7 +24,7 @@ var NewPostForm = React.createClass({
     var text = this.refs.text.value;
     var parentId = this.props.parentId;
     $.ajax({
-      url: this.props.postsPath,
+      url: "/posts",
       type: 'POST',
       dataType: 'json',
       data:  { post: {text: text, parent_id: parentId} }, 
@@ -51,7 +51,6 @@ var NewPostForm = React.createClass({
 });
 
 NewPostForm.propTypes = {
-  postsPath: React.PropTypes.string.isRequired,
   postType: React.PropTypes.string.isRequired,
   placeHolderText: React.PropTypes.string,
   parentID: React.PropTypes.string,

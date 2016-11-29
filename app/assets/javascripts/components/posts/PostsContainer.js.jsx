@@ -19,14 +19,14 @@ var PostsContainer = React.createClass({
                     edited={post[key].updated_at}
                     replyToPost={this.props.replyToPost}
                     deletePost={this.props.deletePost}
-                    postsPath={this.props.postsPath}
+                    postSet={this.props.postSet}
                  />
                  <PostsContainer
                     key={"children-of-" + post[key].id}
                     posts={post[key].children}
                     replyToPost={this.props.replyToPost}
                     deletePost={this.props.deletePost}
-                    postsPath={this.props.postsPath}
+                    postSet={this.props.postSet}
                  />
                  </div>
 
@@ -38,7 +38,7 @@ var PostsContainer = React.createClass({
 
 PostsContainer.propTypes = {
   posts: React.PropTypes.array.isRequired,
-  postsPath: React.PropTypes.string.isRequired,
+  postSet: React.PropTypes.string.isRequired,
   replyToPost: React.PropTypes.func.isRequired,
   deletePost: React.PropTypes.func.isRequired
 };

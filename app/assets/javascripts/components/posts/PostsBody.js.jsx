@@ -54,18 +54,13 @@ var PostsBody = React.createClass({
     return (
       <div className="body">
         <TopSelector 
-          selection={this.props.postSet}
-        />
-        <h3> New Post </h3>
-        <NewPostForm 
-          postsPath = {this.props.postsPath}
-          postType="newPost"
-          placeHolderText="add a new comment"
+          postSet={this.props.postSet}
           add={this.addNewPost}
         />
+        <h3> New Post </h3>
         <PostsContainer 
           posts={this.state.posts}
-          postsPath = {this.props.postsPath}
+          postSet={this.props.postSet}
           replyToPost={this.replyToPost}
           deletePost={this.deletePost} 
         />
@@ -76,5 +71,4 @@ var PostsBody = React.createClass({
 
 PostsBody.propTypes = {
   postSet: React.PropTypes.string.isRequired,
-  postsPath: React.PropTypes.string.isRequired
 };

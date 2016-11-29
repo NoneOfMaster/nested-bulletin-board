@@ -17,7 +17,7 @@ class PostsController < ApplicationController
                             postsPath: posts_path
                             } 
                           }
-      ### can give posts to render with as initial state
+      ### can give posts to render with as initial state ### DO THIS
       format.json {render :json => @top_level_posts_json}
     end
   end
@@ -39,7 +39,16 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
-    render component: 'PostsContainer'
+    prepare_posts(@post.id)
+    respond_to do |format|
+      format.html {render component: 'PostsBody', 
+                          props: { 
+                            postSet: "individualFamily",
+                            postsPath: post_path
+                            } 
+                          }
+      format.json {render :json => @post_family}
+    end
   end
 
   # GET /posts/new
@@ -88,7 +97,7 @@ class PostsController < ApplicationController
     @post = Post.find_by(post_params)
     @post.update(:is_deleted => TRUE)
     ## can refactor with rebuild of index jbuilder
-    render :json => prepare_posts
+    render :json => prepare_posts("all")
   end
 
   private
@@ -105,6 +114,8 @@ class PostsController < ApplicationController
       when "all"
         ## makes hash 
         @total_posts_json = Post.make_master_json
+      else ##id 
+        @post_family = Post.individual_to_json(post_set)
       end
     end
 
