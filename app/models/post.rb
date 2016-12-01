@@ -8,7 +8,7 @@ class Post < ActiveRecord::Base
   end
 
   def self.top_level_posts_json
-    posts_hash = Post.where({ancestry: nil}).arrange(:order => :created_at)
+    posts_hash = Post.where({ancestry: nil, is_deleted: false}).arrange(:order => :created_at)
     {posts: Post.json_converter(posts_hash)} 
   end
 
@@ -19,7 +19,7 @@ class Post < ActiveRecord::Base
 
   def self.json_converter(posts_hash)
     posts_hash.map{|parent, children|
-      parent.is_deleted == TRUE ? text = "<<deleted>>" : text = parent.text
+      parent.is_deleted == TRUE ? text = "post deleted" : text = parent.text
       key = parent.id
       {key => {
                 id: parent.id,

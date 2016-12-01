@@ -17,33 +17,47 @@ var Post = React.createClass({
       }.bind(this)
     });
   },
+  goToPost(id) {
+    return function() {
+      location.href="/posts/" + id;
+    }
+  },
   // consider seperate component for buttons/options
+
+
   render() {
     return (
       <div className="post">
         <p>{this.props.created + ": " + this.props.text}</p>
 
-        { this.props.postSet != "discussionTopics" &&
-          <button onClick={this.toggleReplyBox}> Reply </button>
-        }
-
         { this.props.postSet === "discussionTopics" &&
-          <button> Discuss </button>
+          <div className="topics-button-set">
+            <button onClick={this.goToPost(this.props.id)}> Discuss </button>
+          </div>
         }
 
-        <button> Edit </button>
+        { this.props.postSet === "individualFamily" &&
 
-        <button onClick={this.deletePost}> Delete </button>
+          <div className="post-family-button-set">
 
-        { this.state.replyBox === "show" &&
-          < NewPostForm
-            toggleReplyBox={this.toggleReplyBox}
-            parentId={this.props.id} 
-            postType="postReply"
-            replyToPost={this.props.replyToPost}
-            placeHolderText="post a reply"
-          />
+            <button onClick={this.toggleReplyBox}> Reply </button>      
+
+            <button onClick={this.deletePost}> Delete </button>
+
+            { this.state.replyBox === "show" &&
+              < NewPostForm
+                toggleReplyBox={this.toggleReplyBox}
+                parentId={this.props.id} 
+                postType="postReply"
+                replyToPost={this.props.replyToPost}
+                placeHolderText="post a reply"
+              />
+            }
+
+          </div>
+
         }
+
       </div>
     )
   }

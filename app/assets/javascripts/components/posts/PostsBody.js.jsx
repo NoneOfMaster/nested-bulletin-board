@@ -14,8 +14,10 @@ var PostsBody = React.createClass({
   },
 
   addNewPost(post) {
-    var newStatePosts = this.state.posts.concat(post);
+    var newStatePosts = this.state.posts.slice();
+    newStatePosts.unshift(post);
     this.setState( {posts: newStatePosts } );
+    location.href="/posts/" + Object.keys(post)[0];
   },
   replyToPost (post, parentId) {
     var newStatePosts = this.state.posts.slice();
@@ -57,7 +59,6 @@ var PostsBody = React.createClass({
           postSet={this.props.postSet}
           add={this.addNewPost}
         />
-        <h3> New Post </h3>
         <PostsContainer 
           posts={this.state.posts}
           postSet={this.props.postSet}
