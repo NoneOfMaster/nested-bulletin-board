@@ -1,17 +1,7 @@
 var PostsBody = React.createClass({
   getInitialState: function(){
-    return {posts: []};
+    return this.props.posts;
   }, 
-  componentDidMount: function() {
-      $.ajax({
-        url: this.props.postsPath,
-        type: 'GET',
-        dataType: 'json',
-        success: function(data) {
-          this.setState(data);
-        }.bind(this)
-      });
-  },
 
   addNewPost(post) {
     var newStatePosts = this.state.posts.slice();

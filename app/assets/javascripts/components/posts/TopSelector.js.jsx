@@ -10,12 +10,14 @@ var TopSelector = React.createClass({
         { this.props.postSet === "master" &&
           <h1>Master List of All Posts</h1>
         }
-        { ["discussionTopics", "master"].includes(this.props.postSet) &&
-          <NewPostForm
-            add={this.props.add}
-            postType="newPost"
-            placeHolderText="start a new discussion"
-          />
+        { ["discussionTopics", "master", "newPost"].includes(this.props.postSet) &&
+          <div>
+            <NewPostForm
+              add={this.props.add}
+              postType="newPost"
+              placeHolderText="start a new discussion"
+            />
+          </div>
         }
       </div>
     )

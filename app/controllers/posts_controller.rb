@@ -1,8 +1,8 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
-  ## may have to use a different url or add Vary header
-  ## to avoid browser caching and rendering json on back nav
+  ## added Vary header to avoid browser caching and rendering json on back nav
+  ## if it stops working use different urls for AJAX calls 
 
   # GET /posts
   # GET /posts.json
@@ -14,11 +14,13 @@ class PostsController < ApplicationController
       format.html {render component: 'PostsBody', 
                           props: { 
                             postSet: "discussionTopics",
-                            postsPath: posts_path
+                            posts: @top_level_posts_json
                             } 
                           }
-      ### can give posts to render with as initial state ### DO THIS
-      format.json {render :json => @top_level_posts_json}
+      format.json {
+        set_vary_header
+        render :json => @top_level_posts_json
+      }
     end
   end
 
@@ -29,10 +31,13 @@ class PostsController < ApplicationController
       format.html {render component: 'PostsBody', 
                           props: { 
                             postSet: "master",
-                            postsPath: master_posts_path
+                            posts: @total_posts_json
                             } 
                           }
-      format.json {render :json => @total_posts_json}
+      format.json {
+        set_vary_header
+        render :json => @total_posts_json
+      }
     end
   end
 
@@ -44,22 +49,18 @@ class PostsController < ApplicationController
       format.html {render component: 'PostsBody', 
                           props: { 
                             postSet: "individualFamily",
-                            postsPath: post_path
+                            posts: @post_family
                             } 
                           }
-      format.json {render :json => @post_family}
+      format.json {
+        set_vary_header
+        render :json => @post_family
+      }
     end
   end
 
   # GET /posts/new
   def new
-    @active_nav = 1
-    render component: 'NewPostForm',
-            props: {
-              postsPath: posts_path,
-              postType: "newPost",
-              placeHolderText: "Start Discussion"
-            }
   end
 
   # GET /posts/1/edit
@@ -73,7 +74,10 @@ class PostsController < ApplicationController
     @post.save
     respond_to do |format|
       format.html { redirect_to @post, notice: 'Post was successfully created.' }
-      format.json { render :show, status: :ok, location: @post }
+      format.json { 
+        set_vary_header
+        render :show, status: :ok, location: @post 
+      }
     end
   end
 
@@ -83,10 +87,16 @@ class PostsController < ApplicationController
     respond_to do |format|
       if @post.update(post_params)
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
-        format.json { render :show, status: :ok, location: @post }
+        format.json { 
+          set_vary_header
+          render :show, status: :ok, location: @post 
+        }
       else
         format.html { render :edit }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
+        format.json { 
+          set_vary_header
+          render json: @post.errors, status: :unprocessable_entity 
+        }
       end
     end
   end
@@ -101,6 +111,10 @@ class PostsController < ApplicationController
   end
 
   private
+
+    def set_vary_header
+       response.headers['Vary'] = 'Accept'
+    end
 
     def set_post
       @post = Post.find(params[:id])

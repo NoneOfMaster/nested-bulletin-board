@@ -13,18 +13,12 @@ var Header = React.createClass({
       },
       {
         id: 1,
-        title: "New Discussions",
-        status: "inactive",
-        path: newPath
-      },
-      {
-        id: 2,
         title: "Sign In",
         status: "inactive",
         path: "#/3"
       },
       {
-        id: 3,
+        id: 2,
         title: "Create Account",
         status: "inactive",
         path: "#/4"
