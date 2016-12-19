@@ -2,7 +2,7 @@ var HomeShowBody = React.createClass({
 
   render() {
     return (
-        <h3> WELCOME HOME! </h3>
+        <h3> WELCOME TO NESTED COMMENTS! </h3>
     )
   }
 

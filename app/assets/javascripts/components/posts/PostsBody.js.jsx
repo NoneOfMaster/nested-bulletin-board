@@ -2,7 +2,6 @@ var PostsBody = React.createClass({
   getInitialState: function(){
     return this.props.posts;
   }, 
-
   addNewPost(post) {
     var newStatePosts = this.state.posts.slice();
     newStatePosts.unshift(post);
@@ -45,16 +44,20 @@ var PostsBody = React.createClass({
   render() {
     return (
       <div className="body">
-        <TopSelector 
-          postSet={this.props.postSet}
-          add={this.addNewPost}
-        />
-        <PostsContainer 
-          posts={this.state.posts}
-          postSet={this.props.postSet}
-          replyToPost={this.replyToPost}
-          deletePost={this.deletePost} 
-        />
+        <div className="body-top">
+          <TopSelector 
+            postSet={this.props.postSet}
+            add={this.addNewPost}
+          />    
+        </div>
+        <div className="body-bottom">
+          <PostsContainer 
+            posts={this.state.posts}
+            postSet={this.props.postSet}
+            replyToPost={this.replyToPost}
+            deletePost={this.deletePost} 
+          />
+        </div>
       </div>
     )
   }

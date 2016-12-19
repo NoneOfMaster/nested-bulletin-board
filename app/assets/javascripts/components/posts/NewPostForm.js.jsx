@@ -36,7 +36,7 @@ var NewPostForm = React.createClass({
 
   render() {
     return (
-      <div>
+      <div className={this.props.postType + "-form"}>
         <input 
           id="new-post-input" 
           ref='text' 
@@ -44,7 +44,7 @@ var NewPostForm = React.createClass({
         />
         <button 
           onClick={this.submitProtocol(this.props.postType)}> Submit
-        </button> {/* fires on load, tho generally onClick does not call function */}
+        </button> {/* fires on load */}
       </div>
     )
   }

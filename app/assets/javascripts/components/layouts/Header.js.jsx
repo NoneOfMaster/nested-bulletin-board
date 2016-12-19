@@ -2,14 +2,12 @@ var Header = React.createClass({
   //the issue is that this state is always reinstated not saved anywhere
   getInitialState: function(){
     activeNav = this.props.activeNav;
-    discussionsPath = this.props.postsPath;
-    newPath = this.props.newPath;
     var navObj = {nav: [
       {
         id: 0,
         title: "Discussions",
         status: "inactive",
-        path: discussionsPath
+        path: this.props.postsPath
       },
       {
         id: 1,
@@ -21,7 +19,7 @@ var Header = React.createClass({
         id: 2,
         title: "Create Account",
         status: "inactive",
-        path: "#/4"
+        path: this.props.newUserPath
       }
     ]
   };
@@ -58,5 +56,5 @@ var Header = React.createClass({
 
 Header.propTypes = {
   postsPath: React.PropTypes.string.isRequired,
-  newPath: React.PropTypes.string.isRequired
+  newUserPath: React.PropTypes.string.isRequired
 };

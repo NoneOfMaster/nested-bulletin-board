@@ -22,13 +22,23 @@ var Post = React.createClass({
       location.href="/posts/" + id;
     }
   },
+  postClassName() { 
+    if (this.props.isTopLevel) {
+      return "top-level-post";
+    } else {
+      return "post";
+    }
+  },
   // consider seperate component for buttons/options
 
 
   render() {
     return (
-      <div className="post">
-        <p>{this.props.created + ": " + this.props.text}</p>
+      <div className={this.postClassName()}>
+        <div className="post-content">
+          <div className="text">{this.props.text}</div>
+          <div className="date">Posted: {this.props.created}</div>
+        </div>
 
         { this.props.postSet === "discussionTopics" &&
           <div className="topics-button-set">
@@ -65,7 +75,7 @@ var Post = React.createClass({
 
 Post.propTypes = {
   id: React.PropTypes.number.isRequired, 
-  ancestry: React.PropTypes.string,
+  isTopLevel: React.PropTypes.bool,
   text: React.PropTypes.string.isRequired, 
   created: React.PropTypes.string.isRequired,
   edited: React.PropTypes.string.isRequired,

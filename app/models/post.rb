@@ -1,5 +1,7 @@
 class Post < ActiveRecord::Base
 
+  belongs_to :user
+
   has_ancestry
 
   def self.individual_to_json(id)
@@ -24,7 +26,8 @@ class Post < ActiveRecord::Base
       {key => {
                 id: parent.id,
                 text: text,
-                created_at: parent.created_at,
+                is_top_level: !parent.ancestry,
+                created_at: parent.created_at.strftime("%l:%M%p on %b, %d %Y").strip,
                 updated_at: parent.updated_at,
                 children: Post.json_converter(children)
               }

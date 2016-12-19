@@ -13,7 +13,7 @@ var PostsContainer = React.createClass({
                  <Post
                     key={"post-" + post[key].id}
                     id={post[key].id}
-                    ancestry={post[key].ancestry}
+                    isTopLevel={post[key].is_top_level}
                     text={post[key].text}
                     created={post[key].created_at}
                     edited={post[key].updated_at}
