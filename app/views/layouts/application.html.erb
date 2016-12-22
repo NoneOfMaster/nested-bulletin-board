@@ -8,9 +8,13 @@
 </head>
 <body>
 
-<%= react_component 'Header', 
+<% current_user ? username = current_user.username : username = nil %>
+<%= 
+    react_component 'Header', 
+      currentUser: username,
       postsPath: posts_path,
       newUserPath: signup_path,
+      loginPath: login_path,
       activeNav: @active_nav %>
 <%= yield %>
 

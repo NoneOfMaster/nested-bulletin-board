@@ -1,6 +1,5 @@
 var TopSelector = React.createClass({
 
-
   render() {
     return (
       <div>
@@ -19,6 +18,12 @@ var TopSelector = React.createClass({
             />
           </div>
         }
+        { this.props.formFor === "newUser" &&
+          <h1>Sign Up!</h1>
+        }
+        { this.props.formFor === "newSession" &&
+          <h1>Sign In!</h1>
+        }
       </div>
     )
   }
@@ -26,5 +31,6 @@ var TopSelector = React.createClass({
 });
 
 TopSelector.propTypes = {
-  postSet: React.PropTypes.string.isRequired
+  postSet: React.PropTypes.string,
+  formFor: React.PropTypes.string
 };

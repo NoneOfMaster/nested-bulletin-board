@@ -1,30 +1,48 @@
 var Header = React.createClass({
-  //the issue is that this state is always reinstated not saved anywhere
+  
   getInitialState: function(){
-    activeNav = this.props.activeNav;
     var navObj = {nav: [
       {
         id: 0,
         title: "Discussions",
         status: "inactive",
+        showWhen: "always", 
         path: this.props.postsPath
       },
       {
         id: 1,
         title: "Sign In",
         status: "inactive",
-        path: "#/3"
+        showWhen: "signed out", 
+        path: this.props.loginPath
       },
       {
         id: 2,
         title: "Create Account",
         status: "inactive",
+        showWhen: "signed out", 
         path: this.props.newUserPath
+      },
+      {
+        id: 3,
+        title: this.props.currentUser,
+        status: "inactive",
+        showWhen: "signed in", 
+        path: "#"
+      },
+      {
+        id: 4,
+        title: "Log Out",
+        status: "inactive",
+        showWhen: "signed in", 
+        path: "/logout"
       }
-    ]
-  };
-  if (activeNav != null) navObj.nav[activeNav].status = "active";
-  return navObj;
+    ],
+    userSignedIn: false
+    };
+    if (this.props.activeNav != null) navObj.nav[this.props.activeNav].status = "active";
+    if (this.props.currentUser != null) navObj.userSignedIn = true;
+    return navObj;
   },
 
   render() {
@@ -35,17 +53,34 @@ var Header = React.createClass({
         </div>
         <ul>
           { this.state.nav.map(function(navItem){
+                if ( this.state.userSignedIn && navItem.showWhen !== "signed out") {
 
-              return <li 
-                        key={navItem.id} 
-                        className={"nav-item-" + navItem.status}
-                      >
-                      <a
-                        href={navItem.path}
-                      >{navItem.title}</a>
-                      </li>
+                  return <li 
+                            key={navItem.id} 
+                            className={"nav-item-" + navItem.status}
+                          >
+                          <a
+                            href={navItem.path}
+                          >{navItem.title}</a>
+                          </li>
 
-            }.bind(this))
+                } else if (!this.state.userSignedIn && navItem.showWhen !== "signed in") {
+
+                  return <li 
+                            key={navItem.id} 
+                            className={"nav-item-" + navItem.status}
+                         >
+                         <a
+                            href={navItem.path}
+                         >{navItem.title}</a>
+                         </li> 
+
+                }
+
+              }.bind(this)
+
+            )
+
           }
         </ul>
       </div>

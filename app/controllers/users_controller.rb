@@ -9,7 +9,8 @@ class UsersController < ApplicationController
   end
 
   def new
-    render component: 'UsersNew'
+    @active_nav = 2
+    render component: 'SessionsAndNewUsersForm', props: {formFor: "newUser"}
   end
 
   def edit
@@ -18,12 +19,12 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     respond_to do |format|
-    if @user.save
-      format.json { render json: {success: true, user: @user} }
-    else
-      format.json { render json: {success: false, errors: @user.errors.full_messages} }
-    end
-      
+      if @user.save
+        session["user_id"] = @user.id
+        format.json { render json: {success: true, user: @user} }
+      else
+        format.json { render json: {success: false, errors: @user.errors.full_messages} }
+      end
     end
   end
 
