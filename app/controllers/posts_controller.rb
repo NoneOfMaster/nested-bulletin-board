@@ -1,11 +1,10 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :current_user, only: [:show, :edit, :index, :update, :destroy]
 
   ## added Vary header to avoid browser caching and rendering json on back nav
   ## if it stops working use different urls for AJAX calls 
 
-  # GET /posts
-  # GET /posts.json
   def index
     #top level posts
     @active_nav = 0 #for header component prop
@@ -14,7 +13,8 @@ class PostsController < ApplicationController
       format.html {render component: 'PostsBody', 
                           props: { 
                             postSet: "discussionTopics",
-                            posts: @top_level_posts_json
+                            posts: @top_level_posts_json,
+                            currentUser: @current_user
                             } 
                           }
       format.json {
@@ -31,7 +31,8 @@ class PostsController < ApplicationController
       format.html {render component: 'PostsBody', 
                           props: { 
                             postSet: "master",
-                            posts: @total_posts_json
+                            posts: @total_posts_json,
+                            currentUser: @current_user
                             } 
                           }
       format.json {
@@ -41,15 +42,14 @@ class PostsController < ApplicationController
     end
   end
 
-  # GET /posts/1
-  # GET /posts/1.json
   def show
     prepare_posts(@post.id)
     respond_to do |format|
       format.html {render component: 'PostsBody', 
                           props: { 
                             postSet: "individualFamily",
-                            posts: @post_family
+                            posts: @post_family,
+                            currentUser: @current_user
                             } 
                           }
       format.json {
@@ -59,50 +59,20 @@ class PostsController < ApplicationController
     end
   end
 
-  # GET /posts/new
-  def new
-  end
-
-  # GET /posts/1/edit
-  def edit
-  end
-
-  # POST /posts
-  # POST /posts.json
   def create
     @post = Post.new(post_params)
-    @post.save
     respond_to do |format|
-      format.html { redirect_to @post, notice: 'Post was successfully created.' }
-      format.json { 
-        set_vary_header
-        render :show, status: :ok, location: @post 
-      }
-    end
-  end
-
-  # PATCH/PUT /posts/1
-  # PATCH/PUT /posts/1.json
-  def update
-    respond_to do |format|
-      if @post.update(post_params)
-        format.html { redirect_to @post, notice: 'Post was successfully updated.' }
+      if @post.save
+        format.html { redirect_to @post, notice: 'Post was successfully created.' }
         format.json { 
           set_vary_header
           render :show, status: :ok, location: @post 
         }
       else
-        format.html { render :edit }
-        format.json { 
-          set_vary_header
-          render json: @post.errors, status: :unprocessable_entity 
-        }
       end
     end
   end
 
-  # DELETE /posts/1
-  # DELETE /posts/1.json
   def destroy
     @post = Post.find_by(post_params)
     @post.update(:is_deleted => TRUE)
@@ -134,7 +104,7 @@ class PostsController < ApplicationController
     end
 
     def post_params
-      params.require(:post).permit(:id, :text, :parent_id)
+      params.require(:post).permit(:id, :text, :parent_id, :user_id)
     end
     
 end

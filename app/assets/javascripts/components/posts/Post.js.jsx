@@ -36,13 +36,19 @@ var Post = React.createClass({
     return (
       <div className={this.postClassName()}>
         <div className="post-content">
+          <div className="post-info">
+            <div className="user-photo"></div>
+            <div className="byline">
+              <div className="post-author">{this.props.author}</div>
+              <div className="post-date">{this.props.created}</div>
+            </div>
+          </div> 
           <div className="text">{this.props.text}</div>
-          <div className="date">Posted: {this.props.created}</div>
         </div>
 
         { this.props.postSet === "discussionTopics" &&
           <div className="topics-button-set">
-            <button onClick={this.goToPost(this.props.id)}> Discuss </button>
+            <button onClick={this.goToPost(this.props.id)}> Enter Discussion </button>
           </div>
         }
 
@@ -50,9 +56,17 @@ var Post = React.createClass({
 
           <div className="post-family-button-set">
 
-            <button onClick={this.toggleReplyBox}> Reply </button>      
+            { this.props.currentUserID && 
+              <button onClick={this.toggleReplyBox}> Reply </button>      
+            }
 
-            <button onClick={this.deletePost}> Delete </button>
+            { !this.props.currentUserID && 
+              <span className="signin"> sign in to reply </span>      
+            }
+
+            { this.props.currentUserID === this.props.authorID && 
+              <button onClick={this.deletePost}> Delete </button>
+            }
 
             { this.state.replyBox === "show" &&
               < NewPostForm
@@ -61,11 +75,11 @@ var Post = React.createClass({
                 postType="postReply"
                 replyToPost={this.props.replyToPost}
                 placeHolderText="post a reply"
+                currentUserID={this.props.currentUserID}
               />
             }
 
           </div>
-
         }
 
       </div>

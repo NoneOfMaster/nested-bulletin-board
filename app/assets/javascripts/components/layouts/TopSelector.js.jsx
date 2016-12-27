@@ -15,6 +15,7 @@ var TopSelector = React.createClass({
               add={this.props.add}
               postType="newPost"
               placeHolderText="start a new discussion"
+              currentUserID={this.props.currentUserID}
             />
           </div>
         }

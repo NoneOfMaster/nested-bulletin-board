@@ -2,6 +2,8 @@ class Post < ActiveRecord::Base
 
   belongs_to :user
 
+  validates_presence_of :user_id
+
   has_ancestry
 
   def self.individual_to_json(id)
@@ -21,15 +23,17 @@ class Post < ActiveRecord::Base
 
   def self.json_converter(posts_hash)
     posts_hash.map{|parent, children|
-      parent.is_deleted == TRUE ? text = "post deleted" : text = parent.text
+      parent.is_deleted == TRUE ? text = "<<deleted>>" : text = parent.text
       key = parent.id
       {key => {
                 id: parent.id,
                 text: text,
+                author_id: parent.user_id,
+                author: User.find_by(id: parent.user_id).username,
                 is_top_level: !parent.ancestry,
                 created_at: parent.created_at.strftime("%l:%M%p on %b, %d %Y").strip,
                 updated_at: parent.updated_at,
-                children: Post.json_converter(children)
+                children: Post.json_converter(children),
               }
       }
     }

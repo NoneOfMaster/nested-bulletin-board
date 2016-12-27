@@ -8,12 +8,13 @@ var NewPostForm = React.createClass({
   },
   submitNewPost() {
     var text = this.refs.text.value;
+    var userID = this.props.currentUserID;
     document.getElementById("new-post-input").value = "";
     $.ajax({
       url: "/posts",
       type: 'POST',
       dataType: 'json',
-      data:  { post: {text: text} }, 
+      data:  { post: {text: text, user_id: userID, is_top_level: true} }, 
       success: function(post) {
         this.props.add(post);
       }.bind(this)
@@ -23,11 +24,12 @@ var NewPostForm = React.createClass({
     this.props.toggleReplyBox();
     var text = this.refs.text.value;
     var parentId = this.props.parentId;
+    var userID = this.props.currentUserID;
     $.ajax({
       url: "/posts",
       type: 'POST',
       dataType: 'json',
-      data:  { post: {text: text, parent_id: parentId} }, 
+      data:  { post: {text: text, parent_id: parentId, user_id: userID} }, 
       success: function(post) {
         this.props.replyToPost(post, parentId);
       }.bind(this)

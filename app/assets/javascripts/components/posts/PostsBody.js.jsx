@@ -2,13 +2,25 @@ var PostsBody = React.createClass({
   getInitialState: function(){
     return this.props.posts;
   }, 
+  currentUser() {
+    if ( this.props.currentUser ) {
+      return this.props.currentUser.id;
+    } else {
+      return null;
+    }
+  },
   addNewPost(post) {
     var newStatePosts = this.state.posts.slice();
+    post[Object.keys(post)[0]]["is_top_level"] = true; //look at the ascending numbered post containers
+    post[Object.keys(post)[0]]["author"] = this.props.currentUser.username;
     newStatePosts.unshift(post);
     this.setState( {posts: newStatePosts } );
     location.href="/posts/" + Object.keys(post)[0];
   },
   replyToPost (post, parentId) {
+    post[Object.keys(post)[0]]["author"] = this.props.currentUser.username;
+    post[Object.keys(post)[0]]["author_id"] = this.props.currentUser.id;
+    post[Object.keys(post)[0]]["created_at"] = "just now";
     var newStatePosts = this.state.posts.slice();
     function findParentById(postsArray) {
       for ( var i = 0 ; i < postsArray.length ; i++ ) {
@@ -48,6 +60,7 @@ var PostsBody = React.createClass({
           <TopSelector 
             postSet={this.props.postSet}
             add={this.addNewPost}
+            currentUserID={this.currentUser()}
           />    
         </div>
         <div className="body-bottom">
@@ -55,7 +68,8 @@ var PostsBody = React.createClass({
             posts={this.state.posts}
             postSet={this.props.postSet}
             replyToPost={this.replyToPost}
-            deletePost={this.deletePost} 
+            deletePost={this.deletePost}
+            currentUserID={this.currentUser()}
           />
         </div>
       </div>
@@ -65,4 +79,5 @@ var PostsBody = React.createClass({
 
 PostsBody.propTypes = {
   postSet: React.PropTypes.string.isRequired,
+  postSet: React.PropTypes.string
 };

@@ -25,7 +25,7 @@ var Header = React.createClass({
       },
       {
         id: 3,
-        title: this.props.currentUser,
+        title: this.props.currentUser + "'s Profile",
         status: "inactive",
         showWhen: "signed in", 
         path: "#"
@@ -36,6 +36,13 @@ var Header = React.createClass({
         status: "inactive",
         showWhen: "signed in", 
         path: "/logout"
+      },
+      {
+        id: 5,
+        title: "Visit the Repo",
+        status: "inactive",
+        showWhen: "always", 
+        path: "#"
       }
     ],
     userSignedIn: false

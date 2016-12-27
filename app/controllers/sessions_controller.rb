@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
     end
   end
 
-  def destroy
+  def destroy ## todo: back navs will break it after this at this point
     session.destroy
     ## set automatic session expiration
     render component: 'HomeShowBody'

@@ -2,7 +2,9 @@ var HomeShowBody = React.createClass({
 
   render() {
     return (
-        <h3> WELCOME TO NESTED COMMENTS! </h3>
+      <div class="welcome-message">
+        TO MY NESTED COMMENTS EXPLORATION OF REACT WITH RAILS!
+      </div>
     )
   }
 

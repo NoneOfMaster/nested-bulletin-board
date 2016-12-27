@@ -1,7 +1,9 @@
 var PostsContainer = React.createClass({
 
   render() {
+
     return (
+
       <div>
         { this.props.posts.map(function(post, children) {
           var key = +Object.keys(post)[0];
@@ -15,11 +17,14 @@ var PostsContainer = React.createClass({
                     id={post[key].id}
                     isTopLevel={post[key].is_top_level}
                     text={post[key].text}
+                    author={post[key].author}
+                    authorID={post[key].author_id}
                     created={post[key].created_at}
                     edited={post[key].updated_at}
                     replyToPost={this.props.replyToPost}
                     deletePost={this.props.deletePost}
                     postSet={this.props.postSet}
+                    currentUserID={this.props.currentUserID}
                  />
                  <PostsContainer
                     key={"children-of-" + post[key].id}
@@ -27,6 +32,7 @@ var PostsContainer = React.createClass({
                     replyToPost={this.props.replyToPost}
                     deletePost={this.props.deletePost}
                     postSet={this.props.postSet}
+                    currentUserID={this.props.currentUserID}
                  />
                  </div>
 
