@@ -13,9 +13,11 @@ var PostsBody = React.createClass({
     var newStatePosts = this.state.posts.slice();
     post[Object.keys(post)[0]]["is_top_level"] = true; //look at the ascending numbered post containers
     post[Object.keys(post)[0]]["author"] = this.props.currentUser.username;
+    post[Object.keys(post)[0]]["created_at"] = "just now";
     newStatePosts.unshift(post);
     this.setState( {posts: newStatePosts } );
-    location.href="/posts/" + Object.keys(post)[0];
+    // choose either the above of the below for the flow
+    // location.href="/posts/" + Object.keys(post)[0];
   },
   replyToPost (post, parentId) {
     post[Object.keys(post)[0]]["author"] = this.props.currentUser.username;

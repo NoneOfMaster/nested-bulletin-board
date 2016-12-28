@@ -39,10 +39,11 @@ var NewPostForm = React.createClass({
   render() {
     return (
       <div className={this.props.postType + "-form"}>
-        <input 
+        <textarea 
           id="new-post-input" 
           ref='text' 
           placeholder={this.props.placeHolderText} 
+          size="95"
         />
         <button 
           onClick={this.submitProtocol(this.props.postType)}> Submit

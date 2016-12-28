@@ -2,7 +2,7 @@ var TopSelector = React.createClass({
 
   render() {
     return (
-      <div>
+      <div className="top">
         { this.props.postSet === "discussionTopics" &&
           <h1>All Discussions</h1>
         }

@@ -1,0 +1,118 @@
+#header {
+  margin-bottom: 10px;
+  background-color: rgb(154,178,171);
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
+
+#main-nav {
+  padding: 10px;
+}
+  #main-nav ul {
+    list-style-type: none;
+    text-align: center; 
+    padding-left: 0px;
+    margin: 0px;
+  }
+  #main-nav li {
+    display: inline-block;
+    padding: 12px 4px;
+    border-right: solid 1px rgb(80,127,114);
+  }
+  #main-nav li:last-child {
+    border-right: none;
+  }
+  #main-nav a {
+    text-decoration: none;
+    padding: 18px 20px;
+  }
+  #main-nav a:hover {
+    background-color: rgb(52,106,91);
+  }
+
+#nav-button {
+  display: none;
+  text-align: center;
+}
+  #nav-button span {
+    display: inline-block;
+    cursor: pointer;
+    background-color: rgb(154,178,171);
+    padding: 10px 30px;
+    border-style: solid;
+    border-color: rgb(80,127,114);
+  }
+  #nav-button span:after {
+    display: inline-block;
+    margin-left: 10px;
+    content: "";
+    width: 0px;
+    height: 0px;
+    border-left: solid 10px transparent;
+    border-top: solid 10px #fff;
+    border-right: solid 10px transparent;
+  }
+  #nav-button span.open:after {
+      border-top: none;
+      border-bottom: solid 10px #fff;
+      border-left: solid 10px transparent;
+      border-right: solid 10px transparent; 
+    }
+  #nav-button span:hover {
+      background-color: rgb(52,106,91);
+  }
+/*  #nav-button span:active {
+    background-color: rgb(113,149,139);
+  }*/
+
+#mobile-nav {
+  display: none; 
+  text-align: center;
+}
+  #mobile-nav ul {
+    display: block;
+    list-style-type: none;
+    padding-left: 0px;
+    margin-top: 0px;
+  }
+  #mobile-nav li {
+    border-bottom: solid 1px rgb(80,127,114);
+  }
+  #mobile-nav li:last-child {
+    border-bottom: none;
+    padding-bottom: 1px;
+  }
+  #mobile-nav a {
+    padding: 10px;
+    margin: 5px;
+    display:block;
+  }
+  #mobile-nav a, a:visited, a:active, a:hover {
+    color: white;
+    text-decoration: none;
+  }
+  #mobile-nav a:hover {
+    background-color: rgb(52,106,91);
+  }
+
+.nav-item-active {
+  font-weight: 700; 
+}
+
+/* media queries */
+
+@media all and (max-width: 900px) {
+  #nav-button {
+    display: block; 
+  }
+
+  #main-nav {
+    display: none; 
+  }
+}
+
+@media all and (min-width: 900px) {
+  #mobile-nav {
+    display: none !important; 
+  }
+}

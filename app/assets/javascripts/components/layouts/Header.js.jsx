@@ -51,45 +51,59 @@ var Header = React.createClass({
     if (this.props.currentUser != null) navObj.userSignedIn = true;
     return navObj;
   },
+  toggleMobileNav() {
+    if ( $("#mobile-nav").html() === "" ) {
+      $("#mobile-nav").html($("#main-nav").html());
+    }
+    if ( $("#mobile-nav").css('display') == 'none' ) {
+      $("#nav-button span").addClass('open');
+      $("#mobile-nav").slideDown(250);
+    } else {
+      $("#nav-button span").removeClass('open');
+      $("#mobile-nav").slideUp(250);
+    }
+  },
 
   render() {
     return (
-      <div>
-        <div>
-          <a href="/">home/logo</a>
+      <div id="header">
+        <div id="main-nav">
+          <ul>
+            { this.state.nav.map(function(navItem){
+                  if ( this.state.userSignedIn && navItem.showWhen !== "signed out") {
+
+                    return <li 
+                              key={navItem.id} 
+                              className={"nav-item-" + navItem.status}
+                            >
+                            <a
+                              href={navItem.path}
+                            >{navItem.title}</a>
+                            </li>
+
+                  } else if (!this.state.userSignedIn && navItem.showWhen !== "signed in") {
+
+                    return <li 
+                              key={navItem.id} 
+                              className={"nav-item-" + navItem.status}
+                           >
+                           <a
+                              href={navItem.path}
+                           >{navItem.title}</a>
+                           </li> 
+
+                  }
+
+                }.bind(this)
+
+              )
+
+            }
+          </ul>
         </div>
-        <ul>
-          { this.state.nav.map(function(navItem){
-                if ( this.state.userSignedIn && navItem.showWhen !== "signed out") {
-
-                  return <li 
-                            key={navItem.id} 
-                            className={"nav-item-" + navItem.status}
-                          >
-                          <a
-                            href={navItem.path}
-                          >{navItem.title}</a>
-                          </li>
-
-                } else if (!this.state.userSignedIn && navItem.showWhen !== "signed in") {
-
-                  return <li 
-                            key={navItem.id} 
-                            className={"nav-item-" + navItem.status}
-                         >
-                         <a
-                            href={navItem.path}
-                         >{navItem.title}</a>
-                         </li> 
-
-                }
-
-              }.bind(this)
-
-            )
-
-          }
-        </ul>
+        <div id="nav-button" onClick={this.toggleMobileNav}><span>MENU</span></div>
+        <div id="mobile-nav">
+        </div>
       </div>
     )
   }
