@@ -21,3 +21,17 @@ body {
 .top {
   margin-left: 25px;
 }
+
+#welcome-message {
+  margin: 0 10%;
+  text-align: center
+}
+
+#welcome-message h2, h4 {
+  color: rgb(80, 127, 114);
+}
+
+#welcome-message p {
+  color: rgb(54, 113, 109);
+;
+}

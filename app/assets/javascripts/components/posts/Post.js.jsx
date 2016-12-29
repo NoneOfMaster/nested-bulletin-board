@@ -61,7 +61,7 @@ var Post = React.createClass({
             }
 
             { !this.props.currentUserID && 
-              <span className="signin"> sign in to reply </span>      
+              <span className="signin"> sign in to start a discussion </span>      
             }
 
             { this.props.currentUserID === this.props.authorID && 

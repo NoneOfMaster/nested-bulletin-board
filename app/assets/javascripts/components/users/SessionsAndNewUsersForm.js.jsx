@@ -13,12 +13,13 @@ var SessionsAndNewUsersForm = React.createClass({
       dataType: 'json',
       data:  { user: {username: this.refs.username.value,
                       password: this.refs.password.value,
-                      password_confirmation: this.refs.password_confirmation.value
+                      password_confirmation: this.refs.password_confirmation.value,
+                      referrer: this.refs.referrer.value
                       } 
               },
       success: function(response) {
         if (response.success) {
-          document.location.href = "/posts";
+          document.location.href = response.referrer;
         } else {
           alert(response.errors);
         }
@@ -31,12 +32,13 @@ var SessionsAndNewUsersForm = React.createClass({
       type: 'POST',
       dataType: 'json',
       data:  { user: {username: this.refs.username.value,
-                      password: this.refs.password.value
+                      password: this.refs.password.value,
+                      referrer: this.refs.referrer.value
                       } 
               },
       success: function(response) {
         if (response.success) {
-          document.location.href = "/posts";
+          document.location.href = response.referrer;
         } else {
           alert(response.errors);
         }
@@ -46,8 +48,13 @@ var SessionsAndNewUsersForm = React.createClass({
 
   render() {
     return (
-      <div>
+      <div className="user-form">
         <TopSelector formFor={this.props.formFor} />
+        <input 
+          type="hidden"
+          ref="referrer"
+          value={this.props.referrer}
+        />
         <input 
           id="username" 
           ref='username' 

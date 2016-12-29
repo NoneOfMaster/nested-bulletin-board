@@ -6,6 +6,11 @@ class Post < ActiveRecord::Base
 
   has_ancestry
 
+  def self.user_posts_json(id)
+    posts_hash = Post.where(user_id: id).arrange(:order => :created_at)
+    {posts: Post.json_converter(posts_hash)} 
+  end
+
   def self.individual_to_json(id)
     posts_hash = Post.where("id = ? OR ancestry LIKE ?",id,"%#{id}%").arrange(:order => :created_at)
     {posts: Post.json_converter(posts_hash)} 

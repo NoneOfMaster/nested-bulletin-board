@@ -6,22 +6,34 @@ class UsersController < ApplicationController
   end
 
   def show
+    prepare_user_posts
+    respond_to do |format|
+      format.html {render component: 'PostsBody', 
+                          props: { 
+                            postSet: "userPosts",
+                            posts: @posts,
+                            currentUser: @user
+                            } 
+                          }
+    end
   end
 
   def new
     @active_nav = 2
-    render component: 'SessionsAndNewUsersForm', props: {formFor: "newUser"}
+    ## will need to add logic to ensure referrer page is within app
+    referrer = request.referrer || posts_path
+    render component: 'SessionsAndNewUsersForm', props: {formFor: "newUser", referrer: referrer}
   end
 
   def edit
   end
 
   def create
-    @user = User.new(user_params)
+    @user = User.new(user_params.except("referrer"))
     respond_to do |format|
       if @user.save
         session["user_id"] = @user.id
-        format.json { render json: {success: true, user: @user} }
+        format.json { render json: {success: true, user: @user, referrer: user_params["referrer"]} }
       else
         format.json { render json: {success: false, errors: @user.errors.full_messages} }
       end
@@ -41,7 +53,11 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
     end
 
+    def prepare_user_posts
+      @posts = Post.user_posts_json(params[:id])
+    end
+
     def user_params
-      params.require(:user).permit(:username, :email, :password, :password_confirmation, :admin)
+      params.require(:user).permit(:username, :email, :password, :password_confirmation, :admin, :referrer)
     end
 end

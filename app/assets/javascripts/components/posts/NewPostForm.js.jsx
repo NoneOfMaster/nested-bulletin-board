@@ -45,9 +45,14 @@ var NewPostForm = React.createClass({
           placeholder={this.props.placeHolderText} 
           size="95"
         />
-        <button 
-          onClick={this.submitProtocol(this.props.postType)}> Submit
-        </button> {/* fires on load */}
+        { !this.props.currentUserID &&
+          <span className="signin"> sign in to reply </span> 
+        }
+        { this.props.currentUserID &&
+          <button 
+            onClick={this.submitProtocol(this.props.postType)}> Submit
+          </button>
+        }
       </div>
     )
   }

@@ -14,13 +14,9 @@ class PostsController < ApplicationController
                           props: { 
                             postSet: "discussionTopics",
                             posts: @top_level_posts_json,
-                            currentUser: @current_user
+                            currentUser: current_user
                             } 
                           }
-      format.json {
-        set_vary_header
-        render :json => @top_level_posts_json
-      }
     end
   end
 
@@ -32,13 +28,9 @@ class PostsController < ApplicationController
                           props: { 
                             postSet: "master",
                             posts: @total_posts_json,
-                            currentUser: @current_user
+                            currentUser: current_user
                             } 
                           }
-      format.json {
-        set_vary_header
-        render :json => @total_posts_json
-      }
     end
   end
 
@@ -49,13 +41,9 @@ class PostsController < ApplicationController
                           props: { 
                             postSet: "individualFamily",
                             posts: @post_family,
-                            currentUser: @current_user
+                            currentUser: current_user
                             } 
                           }
-      format.json {
-        set_vary_header
-        render :json => @post_family
-      }
     end
   end
 

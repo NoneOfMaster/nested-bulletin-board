@@ -25,10 +25,10 @@ var Header = React.createClass({
       },
       {
         id: 3,
-        title: this.props.currentUser + "'s Profile",
+        title: this.props.currentUser + "'s Posts",
         status: "inactive",
         showWhen: "signed in", 
-        path: "#"
+        path: "/users/" + this.props.currentUserID
       },
       {
         id: 4,
@@ -42,7 +42,7 @@ var Header = React.createClass({
         title: "Visit the Repo",
         status: "inactive",
         showWhen: "always", 
-        path: "#"
+        path: "https://github.com/NoneOfMaster/tooyou"
       }
     ],
     userSignedIn: false
