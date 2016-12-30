@@ -2,8 +2,8 @@ class SessionsController < ApplicationController
 
   def new
     @active_nav = 1
-    ## will need to add logic to ensure referrer page is within app
     referrer = request.referrer || posts_path
+    referrer = posts_path if [login_path, logout_path, signup_path, root_path].include?(URI(referrer).path)
     render component: 'SessionsAndNewUsersForm', props: {formFor: "newSession", referrer: referrer}
   end
 

@@ -11,16 +11,15 @@ var HomeShowBody = React.createClass({
           have a blast!
         </p>
         <p>
-          Comments will be added immediately  directly below where they are 
-          submitted so that you can see that they have been submitted successfully, 
-          but they will be ordered (for now) according to date order
+          Comments will be added immediately and directly below where they are 
+          submitted so that users can see that they have been submitted successfully, 
+          but they will be ordered (for now) according to date submitted
           when loaded or refreshed
         </p>
         <h4>COMING SOON!</h4>
-        <p>
           <p>Picture Uploads</p>
           <p>Comment Ranking System</p>
-        </p>
+          <p>Markdown</p>
       </div>
     )
   }

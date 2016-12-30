@@ -45,8 +45,10 @@ var Header = React.createClass({
         path: "https://github.com/NoneOfMaster/tooyou"
       }
     ],
-    userSignedIn: false
+    userSignedIn: false,
+    mobileDropDown: "up"
     };
+    //add an ID assigning function so items can be easily rearranged without renumbering
     if (this.props.activeNav != null) navObj.nav[this.props.activeNav].status = "active";
     if (this.props.currentUser != null) navObj.userSignedIn = true;
     return navObj;
@@ -55,12 +57,16 @@ var Header = React.createClass({
     if ( $("#mobile-nav").html() === "" ) {
       $("#mobile-nav").html($("#main-nav").html());
     }
-    if ( $("#mobile-nav").css('display') == 'none' ) {
+    if ( this.state.mobileDropDown === "up" ) {
       $("#nav-button span").addClass('open');
       $("#mobile-nav").slideDown(250);
+      this.state.mobileDropDown = "down";
+      this.setState(this.state);
     } else {
       $("#nav-button span").removeClass('open');
       $("#mobile-nav").slideUp(250);
+      this.state.mobileDropDown = "up";
+      this.setState(this.state);
     }
   },
 
