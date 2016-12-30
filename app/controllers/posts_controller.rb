@@ -2,9 +2,6 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :current_user, only: [:show, :edit, :index, :update, :destroy]
 
-  ## added Vary header to avoid browser caching and rendering json on back nav
-  ## if it stops working use different urls for AJAX calls 
-
   def index
     #top level posts
     @active_nav = 0 #for header component prop
