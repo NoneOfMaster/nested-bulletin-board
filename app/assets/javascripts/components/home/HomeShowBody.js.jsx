@@ -6,9 +6,8 @@ var HomeShowBody = React.createClass({
         <h2>WELCOME TO MY NESTED COMMENTS EXPLORATION OF REACT WITH RAILS!</h2>
         <h4>NOTES!</h4>
         <p>
-          All user-generated content will be purged every five hours and
-          replaced with generic seed data to keep things nice and fresh so
-          have a blast!
+          Generic seed data will be restored and all user-generated content
+          will be purged every day to keep things nice and fresh so have a blast!
         </p>
         <p>
           Comments will be added immediately and directly below where they are 
