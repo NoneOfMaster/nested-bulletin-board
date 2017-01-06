@@ -33,7 +33,6 @@ gem 'ancestry'
 # React
 gem 'react-rails' 
 
-
 group :development, :test do
   gem 'rspec-rails', '~> 3.5'
   gem 'pry'
@@ -47,7 +46,9 @@ group :development do
   gem 'spring'
 end
 
-gem 'rails_12factor', group: :production
+group :production do
+  gem 'rails_12factor'
+  gem 'newrelic_rpm'
+end
 
 ruby "2.2.2"
-
