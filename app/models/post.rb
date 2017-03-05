@@ -12,7 +12,7 @@ class Post < ActiveRecord::Base
   end
 
   def self.individual_to_json(id)
-    posts_hash = Post.where("id = ? OR ancestry LIKE ?",id,"%#{id}%").arrange(:order => :created_at)
+    posts_hash = Post.where("id = ? OR ancestry LIKE ? OR ancestry LIKE ?",id,"#{id}/%", "#{id}").arrange(:order => :created_at)
     {posts: Post.json_converter(posts_hash)} 
   end
 

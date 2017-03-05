@@ -83,7 +83,8 @@ class PostsController < ApplicationController
       when "all"
         ## makes hash 
         @total_posts_json = Post.make_master_json
-      else ##id 
+      else 
+        ## id 
         @post_family = Post.individual_to_json(post_set)
       end
     end
